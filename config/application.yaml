@@ -45,6 +45,13 @@ hapi:
     # the package installer skips every non-active resource.
     validate_resource_status_for_package_upload: false
 
+    # Validate incoming writes so non-conformant payloads are rejected with an
+    # OperationOutcome (the Lab Order/Result Repository actor obligation in the
+    # ZW Lab IG).
+    validation:
+      requests_enabled: true
+      responses_enabled: false
+
     cors:
       allow_Credentials: true
       allowed_origin_patterns:
