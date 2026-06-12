@@ -73,7 +73,10 @@ hapi:
       fhir_zw_lab:
         name: zw.fhir.ig.lab
         version: 0.1.0
-        packageUrl: https://mohcc.github.io/fhir-zw-lab-ig/package.tgz
+        # Connectathon build: published from pmanko/fhir-zw-lab-ig main (the
+        # actor-test-kit work, ahead of mohcc main). Switch back to
+        # https://mohcc.github.io/fhir-zw-lab-ig/package.tgz once merged upstream.
+        packageUrl: https://pmanko.github.io/fhir-zw-lab-ig/package.tgz
         installMode: STORE_AND_INSTALL
 
     # custom_content_path / app_content_path are intentionally NOT set.
