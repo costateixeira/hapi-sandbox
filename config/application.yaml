@@ -38,9 +38,19 @@ hapi:
     allow_external_references: true
     expunge_enabled: true
     reuse_cached_search_results_millis: -1
-    install_transitive_dependencies: true
+    install_transitive_ig_dependencies: true
     openapi_enabled: true
     ig_runtime_upload_enabled: true
+    # The ZW IGs are ci-builds whose resources are still status=draft; without this,
+    # the package installer skips every non-active resource.
+    validate_resource_status_for_package_upload: false
+
+    # Validate incoming writes so non-conformant payloads are rejected with an
+    # OperationOutcome (the Lab Order/Result Repository actor obligation in the
+    # ZW Lab IG).
+    validation:
+      requests_enabled: true
+      responses_enabled: false
 
     cors:
       allow_Credentials: true
@@ -54,7 +64,20 @@ hapi:
       fhir_r4_core:
         name: hl7.fhir.r4.core
         version: 4.0.1
-        url: http://hl7.org/fhir/R4/hl7.fhir.r4.core.tgz
+        packageUrl: http://hl7.org/fhir/R4/hl7.fhir.r4.core.tgz
+      fhir_zw_core:
+        name: zw.fhir.ig.core
+        version: 0.1.0
+        packageUrl: https://mohcc.github.io/fhir-zw-core-ig/package.tgz
+        installMode: STORE_AND_INSTALL
+      fhir_zw_lab:
+        name: zw.fhir.ig.lab
+        version: 0.1.0
+        # Connectathon build: published from pmanko/fhir-zw-lab-ig main (the
+        # actor-test-kit work, ahead of mohcc main). Switch back to
+        # https://mohcc.github.io/fhir-zw-lab-ig/package.tgz once merged upstream.
+        packageUrl: https://pmanko.github.io/fhir-zw-lab-ig/package.tgz
+        installMode: STORE_AND_INSTALL
 
     # custom_content_path / app_content_path are intentionally NOT set.
     # The current hapiproject/hapi:latest image has a bug: CustomContentFilesConfigurer
