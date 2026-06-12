@@ -55,6 +55,22 @@ hapi:
         name: hl7.fhir.r4.core
         version: 4.0.1
         url: http://hl7.org/fhir/R4/hl7.fhir.r4.core.tgz
+      # Zimbabwe Lab workflow IGs, so $validate?profile=... and request
+      # validation work against their profiles out of the box.
+      zw_core:
+        name: zw.fhir.ig.core
+        version: 0.1.0
+        url: https://mohcc.github.io/fhir-zw-core-ig/package.tgz
+      zw_lab:
+        name: zw.fhir.ig.lab
+        version: 0.1.0
+        url: https://mohcc.github.io/fhir-zw-lab-ig/package.tgz
+
+    # Validate incoming writes so non-conformant payloads are rejected with an
+    # OperationOutcome (the repository-actor obligation in the ZW Lab IG).
+    validation:
+      requests_enabled: true
+      responses_enabled: false
 
     # custom_content_path / app_content_path are intentionally NOT set.
     # The current hapiproject/hapi:latest image has a bug: CustomContentFilesConfigurer
